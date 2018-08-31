@@ -1,0 +1,11 @@
+{
+  "name": "@01ht/ht-organization",
+  "version": "1.0.0",
+  "main": "ht-organization.js",
+  "repository": "01ht/ht-organization",
+  "author": "01ht Ltd",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@polymer/lit-element": "^0.5.1"
+  }
+}

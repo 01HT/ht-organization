@@ -1,18 +1,16 @@
 "use strict";
 import { LitElement, html } from "@polymer/lit-element";
-import "./ht-organization-about";
-import "./ht-organization-portfolio";
-import "@01ht/ht-user-avatar";
-import "@01ht/ht-spinner";
 import "@polymer/paper-tooltip";
 
-import {
-  callTestHTTPFunction,
-  callFirebaseHTTPFunction
-} from "@01ht/ht-client-helper-functions";
+import "@01ht/ht-user-avatar";
+import "@01ht/ht-spinner";
+
+import "./ht-organization-about";
+import "./ht-organization-portfolio";
 
 class HTOrganization extends LitElement {
-  _render({ orgData, loading, page, cartChangeInProcess }) {
+  render() {
+    const { orgData, loading, page, cartChangeInProcess } = this;
     if (orgData === undefined) {
       return html`<ht-spinner page></ht-spinner>`;
     }
@@ -165,23 +163,23 @@ class HTOrganization extends LitElement {
             </defs>
         </svg>
     </iron-iconset-svg>
-    <div id="container" loading?=${loading}>
-      <ht-spinner hidden?=${!loading} page></ht-spinner>
-      <div id="sidebar" hidden?=${loading}>
-        <ht-user-avatar data=${orgData} size="128" verifiedSize=${28}></ht-user-avatar>
+    <div id="container" ?loading=${loading}>
+      <ht-spinner ?hidden=${!loading} page></ht-spinner>
+      <div id="sidebar" ?hidden=${loading}>
+        <ht-user-avatar .data=${orgData} size="128" verifiedSize=${28}></ht-user-avatar>
         <h1 id="displayName">${orgData.displayName}</h1>
-        <div id="fullname" hidden?=${orgData.firstName === "" &&
+        <div id="fullname" ?hidden=${orgData.firstName === "" &&
           orgData.lastName === ""}>${orgData.firstName} ${
       orgData.lastName
     }</div>
-        <div id="social" hidden?=${orgData.website === "" &&
+        <div id="social" ?hidden=${orgData.website === "" &&
           orgData.google === "" &&
           orgData.facebook === "" &&
           orgData.twitter === "" &&
           orgData.github === ""}>
           ${
             orgData.website !== ""
-              ? html`<a href="${orgData.website}" target="_blank">
+              ? html`<a href=${orgData.website} target="_blank">
             <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532588175/logos/website/website-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Сайт пользователя</paper-tooltip>
           </a>`
@@ -189,7 +187,7 @@ class HTOrganization extends LitElement {
           }
           ${
             orgData.twitter !== ""
-              ? html`<a href="${orgData.twitter}" target="_blank">
+              ? html`<a href=${orgData.twitter} target="_blank">
             <iron-icon  src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532587138/logos/twitter/twitter-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл Twitter</paper-tooltip>
           </a>`
@@ -197,7 +195,7 @@ class HTOrganization extends LitElement {
           }
           ${
             orgData.facebook !== ""
-              ? html`<a href="${orgData.facebook}" target="_blank">
+              ? html`<a href=${orgData.facebook} target="_blank">
             <iron-icon  src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532586978/logos/facebook/logo-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл Facebook</paper-tooltip>
           </a>`
@@ -205,7 +203,7 @@ class HTOrganization extends LitElement {
           }
            ${
              orgData.google !== ""
-               ? html`<a href="${orgData.google}" target="_blank">
+               ? html`<a href=${orgData.google} target="_blank">
             <iron-icon  src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532600717/logos/google/google-plus.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл Google+</paper-tooltip>
           </a>`
@@ -213,14 +211,14 @@ class HTOrganization extends LitElement {
            }
           ${
             orgData.github !== ""
-              ? html`<a href="${orgData.github}" target="_blank">
+              ? html`<a href=${orgData.github} target="_blank">
             <iron-icon  src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532587414/logos/github/github-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл GitHub</paper-tooltip>
           </a>`
               : ""
           }
         </div>
-        <div id="info" hidden?=${orgData.email === "" &&
+        <div id="info" ?hidden=${orgData.email === "" &&
           orgData.phone === "" &&
           orgData.country === "" &&
           orgData.city === "" &&
@@ -283,20 +281,20 @@ class HTOrganization extends LitElement {
             }
         </div>
       </div>
-      <div id="main" hidden?=${loading}>
+      <div id="main" ?hidden=${loading}>
         <div id="nav">
           <a href="/organization/${
             orgData.uid
-          }/about" class="menu" active?=${page === "about"}>О себе</a>
+          }/about" class="menu" ?active=${page === "about"}>О себе</a>
           <a href="/organization/${
             orgData.uid
-          }/portfolio" class="menu" active?=${page ===
+          }/portfolio" class="menu" ?active=${page ===
       "portfolio"}>Портфолио</a>
         </div>
-        <ht-organization-about class="page" active?=${page ===
-          "about"} data=${orgData}></ht-organization-about>
-        <ht-organization-portfolio class="page" active?=${page ===
-          "portfolio"} data=${orgData} cartChangeInProcess=${cartChangeInProcess}></ht-organization-portfolio>
+        <ht-organization-about class="page" ?active=${page ===
+          "about"} .data=${orgData}></ht-organization-about>
+        <ht-organization-portfolio class="page" ?active=${page ===
+          "portfolio"} .data=${orgData} .cartChangeInProcess=${cartChangeInProcess}></ht-organization-portfolio>
       </div>
     </div>`;
   }
@@ -307,49 +305,30 @@ class HTOrganization extends LitElement {
 
   static get properties() {
     return {
-      orgData: Object,
-      loading: Boolean,
-      page: String,
-      orgId: String,
-      cartChangeInProcess: Boolean
+      orgData: { type: Object },
+      loading: { type: Boolean },
+      page: { type: String },
+      orgId: { type: String },
+      cartChangeInProcess: { type: Boolean }
     };
   }
 
-  async update(orgId, page) {
+  async updateData(orgId, page) {
     try {
       this.page = page;
       if (this.orgId === orgId) return;
       this.orgId = orgId;
-      console.log("update");
       this.loading = true;
-
       let querySnapshot = await window.firebase
         .firestore()
         .collection("organizations")
         .doc(orgId)
         .get();
-
-      // let items = [];
-      // querySnapshot.forEach(doc => {
-      //   let data = doc.data();
-      //   data.orgId = doc.id;
-      //   items.push(data);
-      // });
-
-      // this.items = items;
-
-      // console.log(orgData);
-      // if (this.orgId === orgId) return;
-      // this.orgId = orgId;
       let orgData = querySnapshot.data();
       orgData.uid = orgId;
       orgData.isOrg = true;
       this.orgData = orgData;
       this.loading = false;
-      // if (this.shadowRoot.querySelector("ht-wysiwyg-viewer") !== null) {
-      //   this.shadowRoot.querySelector("ht-wysiwyg-viewer").data = this.orgData.description;
-      // }
-      // this.loading = false;
     } catch (error) {
       console.log("update: " + error.message);
     }

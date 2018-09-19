@@ -4,7 +4,8 @@ import "@01ht/ht-wysiwyg/ht-wysiwyg-viewer.js";
 import "@01ht/ht-nothing-found-placeholder";
 
 class HTOrganizationAbout extends LitElement {
-  _render({ data }) {
+  render() {
+    const { data } = this;
     return html`
     <style>
       :host {
@@ -32,7 +33,7 @@ class HTOrganizationAbout extends LitElement {
       }
     </style>
     <div id="container">
-      <ht-nothing-found-placeholder main="Нет информации" show?=${
+      <ht-nothing-found-placeholder main="Нет информации" ?show=${
         data.description === '{"ops":[{"insert":"\\n"}]}' ||
         data.description === "{}"
           ? true
@@ -48,7 +49,7 @@ class HTOrganizationAbout extends LitElement {
 
   static get properties() {
     return {
-      data: Object
+      data: { type: Object }
     };
   }
 }

@@ -8,10 +8,10 @@
   "dependencies": {
     "@polymer/lit-element": "^0.6.1",
     "@polymer/paper-tooltip": "^3.0.1",
-    "@01ht/ht-user-avatar": "^1.0.0",
-    "@01ht/ht-spinner": "^1.0.0",
-    "@01ht/ht-elements-catalog": "^1.0.0",
-    "@01ht/ht-wysiwyg": "^1.0.0",
-    "@01ht/ht-nothing-found-placeholder": "^1.0.0"
+    "@01ht/ht-user-avatar": "01ht/ht-user-avatar",
+    "@01ht/ht-spinner": "01ht/ht-spinner",
+    "@01ht/ht-elements-catalog": "01ht/ht-elements-catalog",
+    "@01ht/ht-wysiwyg": "01ht/ht-wysiwyg",
+    "@01ht/ht-nothing-found-placeholder": "01ht/ht-nothing-found-placeholder"
   }
 }

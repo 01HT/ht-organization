@@ -285,7 +285,7 @@ class HTOrganization extends LitElement {
         <div id="nav">
           <a href="/organization/${
             orgData.uid
-          }/about" class="menu" ?active=${page === "about"}>О себе</a>
+          }/about" class="menu" ?active=${page === "about"}>О нас</a>
           <a href="/organization/${
             orgData.uid
           }/portfolio" class="menu" ?active=${page ===

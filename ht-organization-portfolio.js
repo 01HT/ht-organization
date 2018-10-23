@@ -26,7 +26,7 @@ class HTOrganizationPortfolio extends LitElement {
     </style>
     <div id="container">
         <ht-spinner ?hidden=${!loading} page></ht-spinner>
-        <ht-elements-catalog-list view="grid" ?hidden=${loading} cartChangeInProcess=${cartChangeInProcess} portfolio></ht-elements-catalog-list>
+        <ht-elements-catalog-list view="grid" ?hidden=${loading} .cartChangeInProcess=${cartChangeInProcess} portfolio></ht-elements-catalog-list>
     </div>`;
   }
 

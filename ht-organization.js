@@ -8,6 +8,8 @@ import "@01ht/ht-spinner";
 import "./ht-organization-about";
 import "./ht-organization-portfolio";
 
+import { updateMetadata } from "pwa-helpers/metadata.js";
+
 class HTOrganization extends LitElement {
   render() {
     const { orgData, loading, page, cartChangeInProcess } = this;
@@ -313,22 +315,45 @@ class HTOrganization extends LitElement {
     };
   }
 
+  updated() {
+    if (this.orgData === undefined) return;
+    updateMetadata({
+      title:
+        this.page === "about"
+          ? `${this.orgData.displayName} | Профайл на Elements`
+          : `${this.orgData.displayName} - Портфолио | Elements`,
+      // description: info.description,
+      image: `${cloudinaryURL}/c_scale,f_auto,h_512,w_512/v${
+        this.orgData.avatar.version
+      }/${this.orgData.avatar.public_id}.png`
+    });
+  }
+
   async updateData(orgId, page) {
     try {
       this.page = page;
       if (this.orgId === orgId) return;
       this.orgId = orgId;
       this.loading = true;
-      let querySnapshot = await window.firebase
+      let snapshot = await window.firebase
         .firestore()
         .collection("organizations")
         .doc(orgId)
         .get();
-      let orgData = querySnapshot.data();
+      this.loading = false;
+      if (!snapshot.exists) {
+        this.dispatchEvent(
+          new CustomEvent("page-not-found", {
+            bubbles: true,
+            composed: true
+          })
+        );
+        return;
+      }
+      let orgData = snapshot.data();
       orgData.uid = orgId;
       orgData.isOrg = true;
       this.orgData = orgData;
-      this.loading = false;
     } catch (error) {
       console.log("update: " + error.message);
     }

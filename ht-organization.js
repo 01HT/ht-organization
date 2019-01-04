@@ -285,13 +285,12 @@ class HTOrganization extends LitElement {
       </div>
       <div id="main" ?hidden=${loading}>
         <div id="nav">
-          <a href="/organization/${
-            orgData.uid
-          }/about" class="menu" ?active=${page === "about"}>О нас</a>
-          <a href="/organization/${
-            orgData.uid
-          }/portfolio" class="menu" ?active=${page ===
-      "portfolio"}>Портфолио</a>
+          <a href="/organization/${orgData.nameInURL}/${
+      orgData.organizationNumber
+    }/about" class="menu" ?active=${page === "about"}>О нас</a>
+          <a href="/organization/${orgData.nameInURL}/${
+      orgData.organizationNumber
+    }/portfolio" class="menu" ?active=${page === "portfolio"}>Портфолио</a>
         </div>
         <ht-organization-about class="page" ?active=${page ===
           "about"} .data=${orgData}></ht-organization-about>
@@ -329,19 +328,19 @@ class HTOrganization extends LitElement {
     });
   }
 
-  async updateData(orgId, page) {
+  async updateData(organizationNumber, page) {
     try {
       this.page = page;
-      if (this.orgId === orgId) return;
-      this.orgId = orgId;
+      if (this.organizationNumber === organizationNumber) return;
+      this.organizationNumber = organizationNumber;
       this.loading = true;
       let snapshot = await window.firebase
         .firestore()
         .collection("organizations")
-        .doc(orgId)
+        .where("organizationNumber", "==", organizationNumber)
         .get();
       this.loading = false;
-      if (!snapshot.exists) {
+      if (snapshot.empty) {
         this.dispatchEvent(
           new CustomEvent("page-not-found", {
             bubbles: true,
@@ -350,9 +349,13 @@ class HTOrganization extends LitElement {
         );
         return;
       }
-      let orgData = snapshot.data();
-      orgData.uid = orgId;
-      orgData.isOrg = true;
+      let orgData;
+      snapshot.forEach(doc => {
+        orgData = doc.data();
+        orgData.orgId = doc.id;
+        orgData.uid = doc.id;
+        orgData.isOrg = true;
+      });
       this.orgData = orgData;
     } catch (error) {
       console.log("update: " + error.message);

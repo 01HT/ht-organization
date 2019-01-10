@@ -271,7 +271,7 @@ class HTOrganization extends LitElement {
               : ""
           }
             ${
-              orgData.isAuthor && orgData.sales > 0
+              orgData.sales > 0
                 ? html`<div id="sales" class="info">
               <div class="icon-block">
                 <iron-icon icon="ht-user-icons:shopping-cart"></iron-icon>

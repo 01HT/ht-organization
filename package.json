@@ -13,6 +13,6 @@
     "@01ht/ht-elements-catalog": "01ht/ht-elements-catalog",
     "@01ht/ht-wysiwyg": "01ht/ht-wysiwyg",
     "@01ht/ht-nothing-found-placeholder": "01ht/ht-nothing-found-placeholder",
-    "pwa-helpers": "^0.8.3"
+    "@01ht/ht-client-helper-functions": "01ht/ht-client-helper-functions"
   }
 }

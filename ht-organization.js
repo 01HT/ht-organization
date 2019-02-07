@@ -8,7 +8,10 @@ import "@01ht/ht-spinner";
 import "./ht-organization-about";
 import "./ht-organization-portfolio";
 
-import { updateMetadata } from "pwa-helpers/metadata.js";
+import {
+  updateMetadata,
+  getMetaDescriptionFromQuillObject
+} from "@01ht/ht-client-helper-functions/metadata.js";
 
 class HTOrganization extends LitElement {
   render() {
@@ -316,15 +319,36 @@ class HTOrganization extends LitElement {
 
   updated() {
     if (this.orgData === undefined) return;
+    let description = "";
+    if (this.page === "about") {
+      try {
+        description = getMetaDescriptionFromQuillObject(
+          JSON.parse(this.orgData.description)
+        );
+      } catch (err) {
+        description = "";
+      }
+    }
+
     updateMetadata({
       title:
         this.page === "about"
           ? `${this.orgData.displayName} | Профайл на Elements`
           : `${this.orgData.displayName} - Портфолио | Elements`,
-      // description: info.description,
       image: `${cloudinaryURL}/c_scale,f_auto,h_512,w_512/v${
         this.orgData.avatar.version
-      }/${this.orgData.avatar.public_id}.png`
+      }/${this.orgData.avatar.public_id}.png`,
+      imageAlt: `${this.orgData.displayName}`,
+      canonical: `${
+        this.page === "about"
+          ? `https://elements.01.ht/organization/${this.orgData.nameInURL}/${
+              this.orgData.organizationNumber
+            }`
+          : `https://elements.01.ht/organization/${this.orgData.nameInURL}/${
+              this.orgData.organizationNumber
+            }/portfolio`
+      }`,
+      description: description
     });
   }
 

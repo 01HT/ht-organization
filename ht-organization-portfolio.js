@@ -1,37 +1,34 @@
 "use strict";
-import { LitElement, html } from "@polymer/lit-element";
+import { LitElement, html, css } from "lit-element";
 import "@01ht/ht-elements-catalog/ht-elements-catalog-list.js";
 import "@01ht/ht-spinner";
 
 class HTOrganizationPortfolio extends LitElement {
+  static styles = css`<style>
+    :host {
+      display: block;
+      position: relative;
+      box-sizing: border-box;
+    }
+  
+    #container {
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+    }
+  
+    [hidden] {
+      display: none
+    }
+  </style>`;
+
   render() {
     const { loading, cartChangeInProcess } = this;
     return html`
-    <style>
-      :host {
-        display: block;
-        position: relative;
-        box-sizing: border-box;
-      }
-    
-      #container {
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-      }
-    
-      [hidden] {
-        display: none
-      }
-    </style>
     <div id="container">
-        <ht-spinner ?hidden=${!loading} page></ht-spinner>
-        <ht-elements-catalog-list view="grid" ?hidden=${loading} .cartChangeInProcess=${cartChangeInProcess} portfolio></ht-elements-catalog-list>
+        <ht-spinner ?hidden="${!loading}" page></ht-spinner>
+        <ht-elements-catalog-list view="grid" ?hidden="${loading}" .cartChangeInProcess="${cartChangeInProcess}" portfolio></ht-elements-catalog-list>
     </div>`;
-  }
-
-  static get is() {
-    return "ht-organization-portfolio";
   }
 
   static get properties() {
@@ -74,4 +71,4 @@ class HTOrganizationPortfolio extends LitElement {
   }
 }
 
-customElements.define(HTOrganizationPortfolio.is, HTOrganizationPortfolio);
+customElements.define("ht-organization-portfolio", HTOrganizationPortfolio);

@@ -1,5 +1,5 @@
 "use strict";
-import { LitElement, html } from "@polymer/lit-element";
+import { LitElement, html, css } from "lit-element";
 import "@polymer/paper-tooltip";
 
 import "@01ht/ht-user-avatar";
@@ -14,17 +14,11 @@ import {
 } from "@01ht/ht-client-helper-functions/metadata.js";
 
 class HTOrganization extends LitElement {
-  render() {
-    const { orgData, loading, page, cartChangeInProcess } = this;
-    if (orgData === undefined) {
-      return html`<ht-spinner page></ht-spinner>`;
-    }
-    return html`
-    <style>
+  static styles = css`<style>
     :host {
-        display: block;
-        position: relative;
-        box-sizing: border-box;
+      display: block;
+      position: relative;
+      box-sizing: border-box;
     }
 
     iron-icon {
@@ -153,7 +147,14 @@ class HTOrganization extends LitElement {
     #social[hidden], #info[hidden], #main[hidden], #sidebar[hidden], ht-spinner[hidden] {
       display:none;
     }
-    </style>
+    </style>`;
+
+  render() {
+    const { orgData, loading, page, cartChangeInProcess } = this;
+    if (orgData === undefined) {
+      return html`<ht-spinner page></ht-spinner>`;
+    }
+    return html`
     <iron-iconset-svg size="24" name="ht-user-icons">
         <svg>
             <defs>
@@ -168,23 +169,23 @@ class HTOrganization extends LitElement {
             </defs>
         </svg>
     </iron-iconset-svg>
-    <div id="container" ?loading=${loading}>
-      <ht-spinner ?hidden=${!loading} page></ht-spinner>
-      <div id="sidebar" ?hidden=${loading}>
-        <ht-user-avatar .data=${orgData} size="128" verifiedSize=${28}></ht-user-avatar>
+    <div id="container" ?loading="${loading}">
+      <ht-spinner ?hidden="${!loading}" page></ht-spinner>
+      <div id="sidebar" ?hidden="${loading}">
+        <ht-user-avatar .data="${orgData}" .size="${128}" .verifiedSize="${28}"></ht-user-avatar>
         <h1 id="displayName">${orgData.displayName}</h1>
-        <div id="fullname" ?hidden=${orgData.firstName === "" &&
-          orgData.lastName === ""}>${orgData.firstName} ${
+        <div id="fullname" ?hidden="${orgData.firstName === "" &&
+          orgData.lastName === ""}">${orgData.firstName} ${
       orgData.lastName
     }</div>
-        <div id="social" ?hidden=${orgData.website === "" &&
+        <div id="social" ?hidden="${orgData.website === "" &&
           orgData.google === "" &&
           orgData.facebook === "" &&
           orgData.twitter === "" &&
-          orgData.github === ""}>
+          orgData.github === ""}">
           ${
             orgData.website !== ""
-              ? html`<a href=${orgData.website} target="_blank">
+              ? html`<a href="${orgData.website}" target="_blank">
             <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532588175/logos/website/website-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Сайт пользователя</paper-tooltip>
           </a>`
@@ -192,43 +193,43 @@ class HTOrganization extends LitElement {
           }
           ${
             orgData.twitter !== ""
-              ? html`<a href=${orgData.twitter} target="_blank">
-            <iron-icon  src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532587138/logos/twitter/twitter-color.svg"></iron-icon>
+              ? html`<a href="${orgData.twitter}" target="_blank">
+            <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532587138/logos/twitter/twitter-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл Twitter</paper-tooltip>
           </a>`
               : ""
           }
           ${
             orgData.facebook !== ""
-              ? html`<a href=${orgData.facebook} target="_blank">
-            <iron-icon  src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532586978/logos/facebook/logo-color.svg"></iron-icon>
+              ? html`<a href="${orgData.facebook}" target="_blank">
+            <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532586978/logos/facebook/logo-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл Facebook</paper-tooltip>
           </a>`
               : ""
           }
            ${
              orgData.google !== ""
-               ? html`<a href=${orgData.google} target="_blank">
-            <iron-icon  src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532600717/logos/google/google-plus.svg"></iron-icon>
+               ? html`<a href="${orgData.google}" target="_blank">
+            <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532600717/logos/google/google-plus.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл Google+</paper-tooltip>
           </a>`
                : ""
            }
           ${
             orgData.github !== ""
-              ? html`<a href=${orgData.github} target="_blank">
-            <iron-icon  src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532587414/logos/github/github-color.svg"></iron-icon>
+              ? html`<a href="${orgData.github}" target="_blank">
+            <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532587414/logos/github/github-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл GitHub</paper-tooltip>
           </a>`
               : ""
           }
         </div>
-        <div id="info" ?hidden=${orgData.email === "" &&
+        <div id="info" ?hidden="${orgData.email === "" &&
           orgData.phone === "" &&
           orgData.country === "" &&
           orgData.city === "" &&
           orgData.company === "" &&
-          orgData.position === ""}>
+          orgData.position === ""}">
           ${
             orgData.email !== ""
               ? html`<div class="info">
@@ -286,25 +287,21 @@ class HTOrganization extends LitElement {
             }
         </div>
       </div>
-      <div id="main" ?hidden=${loading}>
+      <div id="main" ?hidden="${loading}">
         <div id="nav">
           <a href="/organization/${orgData.nameInURL}/${
       orgData.organizationNumber
-    }/about" class="menu" ?active=${page === "about"}>О нас</a>
+    }/about" class="menu" ?active="${page === "about"}">О нас</a>
           <a href="/organization/${orgData.nameInURL}/${
       orgData.organizationNumber
-    }/portfolio" class="menu" ?active=${page === "portfolio"}>Портфолио</a>
+    }/portfolio" class="menu" ?active="${page === "portfolio"}">Портфолио</a>
         </div>
-        <ht-organization-about class="page" ?active=${page ===
-          "about"} .data=${orgData}></ht-organization-about>
-        <ht-organization-portfolio class="page" ?active=${page ===
-          "portfolio"} .data=${orgData} .cartChangeInProcess=${cartChangeInProcess}></ht-organization-portfolio>
+        <ht-organization-about class="page" ?active="${page ===
+          "about"}" .data="${orgData}"></ht-organization-about>
+        <ht-organization-portfolio class="page" ?active="${page ===
+          "portfolio"}" .data="${orgData}" .cartChangeInProcess="${cartChangeInProcess}"></ht-organization-portfolio>
       </div>
     </div>`;
-  }
-
-  static get is() {
-    return "ht-organization";
   }
 
   static get properties() {
@@ -387,4 +384,4 @@ class HTOrganization extends LitElement {
   }
 }
 
-customElements.define(HTOrganization.is, HTOrganization);
+customElements.define("ht-organization", HTOrganization);

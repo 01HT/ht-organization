@@ -13,141 +13,148 @@ import {
   getMetaDescriptionFromQuillObject
 } from "@01ht/ht-client-helper-functions/metadata.js";
 
+import { stylesBasicWebcomponents } from "@01ht/ht-theme/styles";
+
 class HTOrganization extends LitElement {
-  static styles = css`<style>
-    :host {
-      display: block;
-      position: relative;
-      box-sizing: border-box;
-    }
-
-    iron-icon {
-      color:var(--secondary-text-color);
-      min-width:22px;
-      min-height:22px;
-    }
-
-    #container[loading] {
-      display:flex;
-      flex-direction:column;
-    }
-
-    #container {
-      display: grid;
-      grid-template-columns: 0.25fr 1fr;
-      width:100%;
-      margin-top:32px;
-      grid-gap:32px;
-    }
-
-    #main, #sidebar {
-      display:flex;
-      flex-direction:column;
-    }
-
-    #displayName {
-      font-size: 24px;
-      color: #2d2d2d;
-      line-height: 1.42;
-      font-weight: 500;
-      margin: 0;
-      padding: 0;
-      margin-top:16px;
-    }
-
-    #fullname {
-      font-size: 16px;
-      color:var(--secondary-text-color);
-    }
-
-    #social {
-      display:flex;
-      flex-wrap:wrap;
-      margin-top:16px;
-    }
-
-    #social a {
-      margin-right: 8px;
-    }
-    
-    #info {
-      margin-top: 32px;
-    }
-
-    .info {
-      display:flex;
-      align-items:center;
-      color:var(--secondary-text-color);
-      margin-bottom:8px;
-      position:relative;
-    }
-
-    .icon-block {
-      position:relative;
-    }
-
-    .info iron-icon {
-      margin-right:8px;
-      color:var(--secondary-text-color);
-      min-width:18px;
-      min-height:18px;
-      width:18px;
-      height:18px;
-    }
-
-    #sales {
-      margin-top:16px;
-    }
-
-    #nav {
-      display:flex;
-      margin-bottom:16px;
-    }
-
-    .menu {
-      text-decoration: none;
-      color: #414549;
-      font-weight: 500;
-      font-size: 14px;
-      text-transform: uppercase;
-      padding:16px;
-      margin:0 9px;
-    }
-
-    .menu:hover { 
-      border-bottom: 4px solid #dfe1e5;
-    }
-
-    .menu[active], .menu[active]:hover {
-      border-bottom: 4px solid var(--accent-color);
-    }
-
-    #main > .page {
-        display: none;
-    }
-
-    #main>.page[active] {
-        display: block;
-    }
-
-    @media (max-width:650px) {
-        #container {
-            grid-template-columns: auto;
+  static get styles() {
+    return [
+      stylesBasicWebcomponents,
+      css`
+        iron-icon {
+          color: var(--secondary-text-color);
+          min-width: 22px;
+          min-height: 22px;
         }
 
+        #container[loading] {
+          display: flex;
+          flex-direction: column;
+        }
+
+        #container {
+          display: grid;
+          grid-template-columns: 0.25fr 1fr;
+          width: 100%;
+          margin-top: 32px;
+          grid-gap: 32px;
+        }
+
+        #main,
         #sidebar {
-          align-items:center;
+          display: flex;
+          flex-direction: column;
+        }
+
+        #displayName {
+          font-size: 24px;
+          color: #2d2d2d;
+          line-height: 1.42;
+          font-weight: 500;
+          margin: 0;
+          padding: 0;
+          margin-top: 16px;
+        }
+
+        #fullname {
+          font-size: 16px;
+          color: var(--secondary-text-color);
+        }
+
+        #social {
+          display: flex;
+          flex-wrap: wrap;
+          margin-top: 16px;
+        }
+
+        #social a {
+          margin-right: 8px;
+        }
+
+        #info {
+          margin-top: 32px;
+        }
+
+        .info {
+          display: flex;
+          align-items: center;
+          color: var(--secondary-text-color);
+          margin-bottom: 8px;
+          position: relative;
+        }
+
+        .icon-block {
+          position: relative;
+        }
+
+        .info iron-icon {
+          margin-right: 8px;
+          color: var(--secondary-text-color);
+          min-width: 18px;
+          min-height: 18px;
+          width: 18px;
+          height: 18px;
+        }
+
+        #sales {
+          margin-top: 16px;
         }
 
         #nav {
-          justify-content:center;
+          display: flex;
+          margin-bottom: 16px;
         }
-    }
 
-    #social[hidden], #info[hidden], #main[hidden], #sidebar[hidden], ht-spinner[hidden] {
-      display:none;
-    }
-    </style>`;
+        .menu {
+          text-decoration: none;
+          color: #414549;
+          font-weight: 500;
+          font-size: 14px;
+          text-transform: uppercase;
+          padding: 16px;
+          margin: 0 9px;
+        }
+
+        .menu:hover {
+          border-bottom: 4px solid #dfe1e5;
+        }
+
+        .menu[active],
+        .menu[active]:hover {
+          border-bottom: 4px solid var(--accent-color);
+        }
+
+        #main > .page {
+          display: none;
+        }
+
+        #main > .page[active] {
+          display: block;
+        }
+
+        @media (max-width: 650px) {
+          #container {
+            grid-template-columns: auto;
+          }
+
+          #sidebar {
+            align-items: center;
+          }
+
+          #nav {
+            justify-content: center;
+          }
+        }
+
+        #social[hidden],
+        #info[hidden],
+        #main[hidden],
+        #sidebar[hidden],
+        ht-spinner[hidden] {
+          display: none;
+        }
+      `
+    ];
+  }
 
   render() {
     const { orgData, loading, page, cartChangeInProcess } = this;

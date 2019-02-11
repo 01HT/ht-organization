@@ -3,24 +3,25 @@ import { LitElement, html, css } from "lit-element";
 import "@01ht/ht-elements-catalog/ht-elements-catalog-list.js";
 import "@01ht/ht-spinner";
 
+import { stylesBasicWebcomponents } from "@01ht/ht-theme/styles";
+
 class HTOrganizationPortfolio extends LitElement {
-  static styles = css`<style>
-    :host {
-      display: block;
-      position: relative;
-      box-sizing: border-box;
-    }
-  
-    #container {
-      display: flex;
-      flex-direction: column;
-      margin: auto;
-    }
-  
-    [hidden] {
-      display: none
-    }
-  </style>`;
+  static get styles() {
+    return [
+      stylesBasicWebcomponents,
+      css`
+        #container {
+          display: flex;
+          flex-direction: column;
+          margin: auto;
+        }
+
+        [hidden] {
+          display: none;
+        }
+      `
+    ];
+  }
 
   render() {
     const { loading, cartChangeInProcess } = this;

@@ -20,6 +20,10 @@ class HTOrganization extends LitElement {
     return [
       stylesBasicWebcomponents,
       css`
+        a {
+          outline: none;
+        }
+
         iron-icon {
           color: var(--secondary-text-color);
           min-width: 22px;
@@ -68,6 +72,7 @@ class HTOrganization extends LitElement {
 
         #social a {
           margin-right: 8px;
+          outline: none;
         }
 
         #info {

@@ -371,6 +371,7 @@ class HTOrganization extends LitElement {
         .firestore()
         .collection("organizations")
         .where("organizationNumber", "==", organizationNumber)
+        .limit(1)
         .get();
       this.loading = false;
       if (snapshot.empty) {

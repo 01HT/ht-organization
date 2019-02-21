@@ -37,7 +37,7 @@ class HTOrganization extends LitElement {
 
         #container {
           display: grid;
-          grid-template-columns: 0.25fr 1fr;
+          grid-template-columns: 0.25fr 0.75fr;
           width: 100%;
           margin-top: 32px;
           grid-gap: 32px;
@@ -47,6 +47,19 @@ class HTOrganization extends LitElement {
         #sidebar {
           display: flex;
           flex-direction: column;
+        }
+
+        #sidebar {
+          overflow: hidden;
+        }
+
+        #sidebar h1,
+        #sidebar #displayName,
+        #sidebar #fullname,
+        .text {
+          word-wrap: break-word;
+          overflow: hidden;
+          width: 100%;
         }
 
         #displayName {
@@ -77,6 +90,7 @@ class HTOrganization extends LitElement {
 
         #info {
           margin-top: 32px;
+          width: 100%;
         }
 
         .info {
@@ -143,6 +157,10 @@ class HTOrganization extends LitElement {
 
           #sidebar {
             align-items: center;
+          }
+
+          #displayName {
+            text-align: center;
           }
 
           #nav {

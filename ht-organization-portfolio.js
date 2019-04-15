@@ -15,20 +15,20 @@ class HTOrganizationPortfolio extends LitElement {
           flex-direction: column;
           margin: auto;
         }
-
-        [hidden] {
-          display: none;
-        }
       `
     ];
   }
 
   render() {
-    const { loading, cartChangeInProcess } = this;
+    const { loading, cartChangeInProcess, items } = this;
     return html`
     <div id="container">
-        <ht-spinner ?hidden="${!loading}" page></ht-spinner>
-        <ht-elements-catalog-list view="grid" ?hidden="${loading}" .cartChangeInProcess="${cartChangeInProcess}" portfolio></ht-elements-catalog-list>
+        ${
+          loading
+            ? html`<ht-spinner page></ht-spinner>`
+            : html`<ht-elements-catalog-list view="grid" .cartChangeInProcess="${cartChangeInProcess}"
+            .items="${items}" portfolio></ht-elements-catalog-list>`
+        }
     </div>`;
   }
 
@@ -36,7 +36,8 @@ class HTOrganizationPortfolio extends LitElement {
     return {
       data: { type: Object },
       loading: { type: Boolean },
-      cartChangeInProcess: { type: Boolean }
+      cartChangeInProcess: { type: Boolean },
+      items: { type: Array }
     };
   }
 
@@ -64,7 +65,7 @@ class HTOrganizationPortfolio extends LitElement {
         data.itemId = doc.id;
         if (data.published) items.push(data);
       });
-      this.shadowRoot.querySelector("ht-elements-catalog-list").data = items;
+      this.items = items;
       this.loading = false;
     } catch (err) {
       console.log("_setData: " + err.message);

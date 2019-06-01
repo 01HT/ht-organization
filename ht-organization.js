@@ -215,7 +215,9 @@ class HTOrganization extends LitElement {
           orgData.github === ""}">
           ${
             orgData.website !== ""
-              ? html`<a href="${orgData.website}" target="_blank">
+              ? html`<a href="${
+                  orgData.website
+                }" target="_blank" rel="noopener nofollow">
             <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532588175/logos/website/website-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Сайт пользователя</paper-tooltip>
           </a>`
@@ -223,7 +225,9 @@ class HTOrganization extends LitElement {
           }
           ${
             orgData.twitter !== ""
-              ? html`<a href="${orgData.twitter}" target="_blank">
+              ? html`<a href="${
+                  orgData.twitter
+                }" target="_blank" rel="noopener nofollow">
             <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532587138/logos/twitter/twitter-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл Twitter</paper-tooltip>
           </a>`
@@ -231,7 +235,9 @@ class HTOrganization extends LitElement {
           }
           ${
             orgData.facebook !== ""
-              ? html`<a href="${orgData.facebook}" target="_blank">
+              ? html`<a href="${
+                  orgData.facebook
+                }" target="_blank" rel="noopener nofollow">
             <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532586978/logos/facebook/logo-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл Facebook</paper-tooltip>
           </a>`
@@ -239,7 +245,9 @@ class HTOrganization extends LitElement {
           }
            ${
              orgData.google !== ""
-               ? html`<a href="${orgData.google}" target="_blank">
+               ? html`<a href="${
+                   orgData.google
+                 }" target="_blank" rel="noopener nofollow">
             <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532600717/logos/google/google-plus.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл Google+</paper-tooltip>
           </a>`
@@ -247,7 +255,9 @@ class HTOrganization extends LitElement {
            }
           ${
             orgData.github !== ""
-              ? html`<a href="${orgData.github}" target="_blank">
+              ? html`<a href="${
+                  orgData.github
+                }" target="_blank" rel="noopener nofollow">
             <iron-icon src="https://res.cloudinary.com/cdn-01ht/image/upload/v1532587414/logos/github/github-color.svg"></iron-icon>
             <paper-tooltip position="right" animation-delay="0" offset="4">Профайл GitHub</paper-tooltip>
           </a>`

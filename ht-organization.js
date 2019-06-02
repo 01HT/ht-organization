@@ -366,8 +366,7 @@ class HTOrganization extends LitElement {
         description = "";
       }
     }
-
-    updateMetadata({
+    let meta = {
       title:
         this.page === "about"
           ? `${this.orgData.displayName} | Профайл на Elements`
@@ -386,7 +385,9 @@ class HTOrganization extends LitElement {
             }/portfolio`
       }`,
       description: description
-    });
+    };
+    if (description === "") meta.noindex = "noindex,nofollow";
+    updateMetadata(meta);
   }
 
   async updateData(organizationNumber, page) {

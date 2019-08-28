@@ -387,10 +387,10 @@ class HTOrganization extends LitElement {
       imageAlt: `${this.orgData.displayName}`,
       canonical: `${
         this.page === "about"
-          ? `https://elements.01.ht/organization/${this.orgData.nameInURL}/${
+          ? `${window.origin}/organization/${this.orgData.nameInURL}/${
               this.orgData.organizationNumber
             }`
-          : `https://elements.01.ht/organization/${this.orgData.nameInURL}/${
+          : `${window.origin}/organization/${this.orgData.nameInURL}/${
               this.orgData.organizationNumber
             }/portfolio`
       }`,
